@@ -5,8 +5,11 @@ export const useCartStore = defineStore('cart', {
     cart: [] as number[],
   }),
   actions: {
-    add(number: number) {
-      this.cart.push(number)
+    add(id: number) {
+      this.cart.push(id)
+    },
+    delete(id: number) {
+      this.cart = this.cart.filter(p => p !== id)
     },
   },
 })

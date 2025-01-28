@@ -12,40 +12,25 @@
       :key="product.id"
     >
       <v-card
-        :title="product.name"
+        :title="product.title"
         :to="`/products/${product.id}`"
         link
-        text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus!"
+        :text="product.description.length > 48 ? product.description.slice(0, 48) + '...' : product.description"
+        class="card"
       ></v-card>
     </v-col>
   </v-row>
 </template>
 
 <script setup lang="ts">
-const products = ref([
-  {
-    id: 1,
-    name: 'Футболка'
-  },
-  {
-    id: 2,
-    name: 'Джинсы'
-  },
-  {
-    id: 3,
-    name: 'Бейсболка'
-  },
-  {
-    id: 4,
-    name: 'Кеды'
-  }
-])
-
+const { data: products } = await useFetch('https://api.escuelajs.co/api/v1/products')
 const filterText = ref('')
 
-const filteredProducts = computed(() => products.value.filter((p) => p.name.toLowerCase().includes(filterText.value.toLowerCase())))
+const filteredProducts = computed(() => products.value.filter((p) => p.title.toLowerCase().includes(filterText.value.toLowerCase())))
 </script>
 
 <style scoped>
-
+.card {
+  width: 400px;
+}
 </style>
